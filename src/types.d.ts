@@ -27,7 +27,7 @@ interface Post {
   body: string;
 }
 
-interface Comment {
+interface DawnComment {
   id: number;
   post: number;
   author: number;

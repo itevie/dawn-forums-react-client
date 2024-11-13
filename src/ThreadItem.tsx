@@ -5,6 +5,7 @@ import Row from "./dawn-ui/components/Row";
 export default function ThreadItem({ thread }: { thread: Thread }) {
   return (
     <Container
+      hover
       onClick={() => (window.location.search = `?thread=${thread.id}`)}
     >
       <Column>

@@ -6,6 +6,7 @@ import Column from "./dawn-ui/components/Column";
 import PostItem from "./PostItem";
 import Container from "./dawn-ui/components/Container";
 import Button from "./dawn-ui/components/Button";
+import ForumNavbar from "./ForumNavbar";
 
 export default function Thread({
   id,
@@ -24,16 +25,20 @@ export default function Thread({
     (async () => {
       try {
         setThread(
-          (await axiosWrapper("get", `${options.baseUrl}/api/threads/${id}`))
-            .data
+          (
+            await axiosWrapper<"get", Thread>(
+              "get",
+              `${options.baseUrl}/api/threads/${id}`
+            )
+          ).data
         );
         setPosts(
           (
-            await axiosWrapper(
+            await axiosWrapper<"get", Post[]>(
               "get",
               `${options.baseUrl}/api/threads/${id}/posts`
             )
-          ).data
+          ).data.reverse()
         );
       } catch {}
     })();
@@ -57,8 +62,8 @@ export default function Thread({
   return !thread ? (
     <>Loading...</>
   ) : (
-    <>
-      <Text type="heading">Thread: {thread.name}</Text>
+    <Column style={{ gap: "10px" }}>
+      <ForumNavbar options={options} />
       <Column style={{ gap: "10px" }}>
         <Container>
           <Column>
@@ -85,9 +90,9 @@ export default function Thread({
           </Column>
         </Container>
         {posts.map((x) => (
-          <PostItem post={x} />
+          <PostItem post={x} options={options} />
         ))}
       </Column>
-    </>
+    </Column>
   );
 }
