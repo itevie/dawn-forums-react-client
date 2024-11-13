@@ -1,7 +1,5 @@
-import Button from "./dawn-ui/components/Button";
+import DawnForum from "./DawnForum";
 
 export default function App() {
-  return (
-    <Button>Hello</Button>    
-  );
+  return <DawnForum baseUrl="http://localhost:3000" />;
 }
