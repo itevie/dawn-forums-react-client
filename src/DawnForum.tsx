@@ -6,9 +6,11 @@ import Thread from "./Thread";
 import Content from "./dawn-ui/components/Content";
 import Post from "./Post";
 import Container from "./dawn-ui/components/Container";
-import { Text } from "./dawn-ui";
+import Words from "./dawn-ui/components/Words";
 import Button from "./dawn-ui/components/Button";
 import ForumNavbar from "./ForumNavbar";
+import Register from "./Register";
+import Page from "./dawn-ui/components/Page";
 
 export interface DawnForumOptions {
   baseUrl: string;
@@ -18,11 +20,22 @@ export default function DawnForum(options: DawnForumOptions) {
   const [threads, setThreads] = useState<Thread[]>([]);
   const [currentThread, setCurrentThread] = useState<number | null>(null);
   const [currentPost, setCurrentPost] = useState<number | null>(null);
+  const [pageType, setPageType] = useState<"login" | "register" | null>(null);
 
   const titleRef = useRef<HTMLInputElement>(null);
 
   useEffect(() => {
     let params = new URLSearchParams(window.location.search);
+
+    if (params.has("register")) {
+      setPageType("register");
+      return;
+    }
+
+    if (params.has("login")) {
+      setPageType("login");
+      return;
+    }
 
     if (params.get("post")) {
       setCurrentPost(parseInt(params.get("post") as string));
@@ -60,8 +73,10 @@ export default function DawnForum(options: DawnForumOptions) {
   }
 
   return (
-    <Content>
-      {currentPost ? (
+    <Page>
+      {pageType === "register" ? (
+        <Register options={options} />
+      ) : currentPost ? (
         <Post id={currentPost} options={options} />
       ) : currentThread ? (
         <Thread id={currentThread} options={options} />
@@ -69,7 +84,7 @@ export default function DawnForum(options: DawnForumOptions) {
         <Column style={{ gap: "10px" }}>
           <ForumNavbar options={options} />
           <Container>
-            <Text type="heading">Create a thread</Text>
+            <Words type="heading">Create a thread</Words>
             <table>
               <tbody>
                 <tr>
@@ -89,6 +104,6 @@ export default function DawnForum(options: DawnForumOptions) {
           ))}
         </Column>
       )}
-    </Content>
+    </Page>
   );
 }

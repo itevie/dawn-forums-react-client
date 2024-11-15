@@ -1,5 +1,6 @@
-import { Text } from "./dawn-ui";
+import Words from "./dawn-ui/components/Words";
 import Link from "./dawn-ui/components/Link";
+import Row from "./dawn-ui/components/Row";
 import { DawnForumOptions } from "./DawnForum";
 
 export default function ForumNavbar({
@@ -22,8 +23,14 @@ export default function ForumNavbar({
   ) : null;
 
   return (
-    <Text type="heading">
-      {home} {thread && <>/ {thread}</>} {post && <>/ {post}</>}
-    </Text>
+    <Row util={["align-center"]} style={{ justifyContent: "space-between" }}>
+      <Words type="heading">
+        {home} {thread && <>/ {thread}</>} {post && <>/ {post}</>}
+      </Words>
+      <Row style={{ gap: "10px" }}>
+        <Link href="?login">Login</Link>
+        <Link href="?register">Register</Link>
+      </Row>
+    </Row>
   );
 }

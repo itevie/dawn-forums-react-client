@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from "react";
-import { Text } from "./dawn-ui";
+import Words from "./dawn-ui/components/Words";
 import { axiosWrapper } from "./dawn-ui/util";
 import { DawnForumOptions } from "./DawnForum";
 import Container from "./dawn-ui/components/Container";
@@ -68,13 +68,13 @@ export default function Post({
         <Row style={{ gap: "10px" }}>
           <SideUser util={["no-shrink"]} user={post.author} options={options} />
           <Column>
-            <Text type="heading">{post.title}</Text>
+            <Words type="heading">{post.title}</Words>
             <Markdown remarkPlugins={[remarkGfm]}>{post.body}</Markdown>
           </Column>
         </Row>
       </Container>
       <Container>
-        <Text type="heading">Add a comment</Text>
+        <Words type="heading">Add a comment</Words>
         <textarea ref={bodyRef} style={{ height: "100px" }}></textarea>
         <Button big onClick={createComment}>
           Post

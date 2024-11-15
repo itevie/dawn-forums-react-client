@@ -1,5 +1,4 @@
 import { useEffect, useRef, useState } from "react";
-import { Text } from "./dawn-ui";
 import { axiosWrapper } from "./dawn-ui/util";
 import { DawnForumOptions } from "./DawnForum";
 import Column from "./dawn-ui/components/Column";
@@ -7,6 +6,7 @@ import PostItem from "./PostItem";
 import Container from "./dawn-ui/components/Container";
 import Button from "./dawn-ui/components/Button";
 import ForumNavbar from "./ForumNavbar";
+import Words from "./dawn-ui/components/Words";
 
 export default function Thread({
   id,
@@ -67,7 +67,7 @@ export default function Thread({
       <Column style={{ gap: "10px" }}>
         <Container>
           <Column>
-            <Text type="heading">Create a post</Text>
+            <Words type="heading">Create a post</Words>
             <table>
               <tbody>
                 <tr>
